@@ -88,6 +88,10 @@ cloud-localds "$final_image_name".img original-image.img user-data.yaml
 echo "Converting the final image format to qcow2..."
 qemu-img convert -O qcow2 "$final_image_name".img "$final_image_name.$final_image_format"
 
+# Resizing Image
+echo "Resizing image..."
+qemu-img resize "$final_image_name.$final_image_format" 32G
+
 # Cleaning files
 echo "Cleaning files..."
 rm -rf "$final_image_name".img user-data.yaml original-image.img
