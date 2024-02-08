@@ -55,7 +55,7 @@ fi
 echo "Creating a cloud-init configuration file..."
 cat <<EOF > user-data.yaml
 #cloud-config
-password: passw0rd
+password: root
 chpasswd: { expire: False }
 ssh_pwauth: True
 runcmd:
@@ -65,13 +65,10 @@ runcmd:
       upgrade: yes
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
-  - systemctl enable ssh
-  - systemctl start ssh
+  - systemctl enable sshd
+  - systemctl start sshd
 packages:
   - qemu-guest-agent
-  - kubelet
-  - kubectl
-  - kubeadm
   - openssh-server
 users:
   - name: ansible
